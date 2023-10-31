@@ -39,5 +39,24 @@ public class AccountServiceTest {
         assertEquals(name, createdAccount.getName());
         assertEquals(balance, createdAccount.getBalance());
     }
+    
+    @Test
+    public void testGetAccount() {
+        // Given
+        int accountId = 1;
+
+        Account expectedAccount = new Account();
+        expectedAccount.setId(accountId);
+        expectedAccount.setName("John Doe");
+        expectedAccount.setBalance(1000.0);
+
+        when(accountRepository.findById(accountId)).thenReturn(java.util.Optional.of(expectedAccount));
+
+        // When
+        Account actualAccount = accountService.getAccount(accountId);
+
+        // Then
+        assertEquals(expectedAccount, actualAccount);
+    }
 }
 
